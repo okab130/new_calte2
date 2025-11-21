@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ダッシュボード - 医療カルテシステム</title>
+  <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+  <!-- ヘッダー -->
+  <header class="header">
+    <div class="header-left">
+      <div class="header-logo">📋 医療カルテシステム</div>
+    </div>
+    <div class="header-right">
+      <div class="user-info">
+        <span>👤 山田医師 様</span>
+        <button class="btn btn-outline" style="color: white; border-color: white;" onclick="logout()">ログアウト</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ナビゲーションバー -->
+  <nav class="navbar">
+    <ul class="nav-menu">
+      <li class="nav-item active">ホーム</li>
+      <li class="nav-item" onclick="location.href='patient-search.html'">患者</li>
+      <li class="nav-item" onclick="location.href='medical-record.html'">診療</li>
+      <li class="nav-item">オーダー</li>
+      <li class="nav-item">予約</li>
+      <li class="nav-item">会計</li>
+      <li class="nav-item">レポート</li>
+      <li class="nav-item">設定</li>
+    </ul>
+  </nav>
+
+  <!-- メインコンテナ -->
+  <div class="main-container">
+    <!-- サイドバー -->
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li class="sidebar-item active">ダッシュボード</li>
+        <li class="sidebar-item" onclick="location.href='patient-search.html'">患者検索</li>
+        <li class="sidebar-item">カルテ記録</li>
+        <li class="sidebar-item">処方オーダー</li>
+        <li class="sidebar-item">検査オーダー</li>
+        <li class="sidebar-item">予約管理</li>
+      </ul>
+    </aside>
+
+    <!-- メインコンテンツ -->
+    <main class="main-content">
+      <h1 style="margin-bottom: 30px;">ダッシュボード</h1>
+
+      <!-- 統計カード -->
+      <div class="dashboard-grid">
+        <div class="stat-card">
+          <div class="stat-card-title">本日の外来患者</div>
+          <div class="stat-card-value">25名</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">予約患者</div>
+          <div class="stat-card-value">20名</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">入院患者</div>
+          <div class="stat-card-value">10名</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-card-title">待機患者</div>
+          <div class="stat-card-value" style="color: #FF9800;">5名</div>
+        </div>
+      </div>
+
+      <!-- アラート・通知 -->
+      <div class="card">
+        <div class="card-header">⚠️ アラート・通知</div>
+        <div class="card-body">
+          <div class="alert alert-danger">
+            <span>🔴</span>
+            <div>
+              <strong>検査結果異常: 3件</strong>
+              <div style="font-size: 13px; margin-top: 4px;">患者番号 000123, 000456, 000789 の検査結果に異常値が検出されました</div>
+            </div>
+          </div>
+          <div class="alert alert-warning">
+            <span>⚠️</span>
+            <div>
+              <strong>処方要確認: 2件</strong>
+              <div style="font-size: 13px; margin-top: 4px;">薬剤師による確認待ちの処方オーダーがあります</div>
+            </div>
+          </div>
+          <div class="alert alert-info">
+            <span>📧</span>
+            <div>
+              <strong>新着メッセージ: 5件</strong>
+              <div style="font-size: 13px; margin-top: 4px;">未読のメッセージがあります</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 本日の予約患者 -->
+      <div class="card">
+        <div class="card-header">📅 本日の予約患者</div>
+        <div class="card-body">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>時刻</th>
+                <th>患者番号</th>
+                <th>氏名</th>
+                <th>診療科</th>
+                <th>状態</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>09:00</td>
+                <td>000123</td>
+                <td>山田 太郎</td>
+                <td>内科</td>
+                <td><span class="badge badge-success">受付済</span></td>
+                <td><button class="btn btn-primary" style="padding: 6px 12px; font-size: 13px;">診察</button></td>
+              </tr>
+              <tr>
+                <td>09:30</td>
+                <td>000456</td>
+                <td>佐藤 花子</td>
+                <td>内科</td>
+                <td><span class="badge badge-warning">未受付</span></td>
+                <td><button class="btn btn-outline" style="padding: 6px 12px; font-size: 13px;">受付</button></td>
+              </tr>
+              <tr>
+                <td>10:00</td>
+                <td>000789</td>
+                <td>鈴木 一郎</td>
+                <td>内科</td>
+                <td><span class="badge badge-warning">未受付</span></td>
+                <td><button class="btn btn-outline" style="padding: 6px 12px; font-size: 13px;">受付</button></td>
+              </tr>
+              <tr>
+                <td>10:30</td>
+                <td>000234</td>
+                <td>田中 美咲</td>
+                <td>内科</td>
+                <td><span class="badge badge-warning">未受付</span></td>
+                <td><button class="btn btn-outline" style="padding: 6px 12px; font-size: 13px;">受付</button></td>
+              </tr>
+              <tr>
+                <td>11:00</td>
+                <td>000567</td>
+                <td>高橋 健太</td>
+                <td>内科</td>
+                <td><span class="badge badge-warning">未受付</span></td>
+                <td><button class="btn btn-outline" style="padding: 6px 12px; font-size: 13px;">受付</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <!-- クイックアクセス -->
+        <div class="card">
+          <div class="card-header">⚡ クイックアクセス</div>
+          <div class="card-body">
+            <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" onclick="location.href='patient-search.html'">
+              🔍 患者検索
+            </button>
+            <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" onclick="location.href='medical-record.html'">
+              📝 カルテ記録
+            </button>
+            <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" onclick="location.href='prescription-order.html'">
+              💊 処方オーダー
+            </button>
+            <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;">
+              🧪 検査オーダー
+            </button>
+            <button class="btn btn-primary" style="width: 100%;">
+              📅 予約受付
+            </button>
+          </div>
+        </div>
+
+        <!-- 統計情報 -->
+        <div class="card">
+          <div class="card-header">📊 統計情報</div>
+          <div class="card-body">
+            <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eee;">
+              <span style="color: #666;">本日受付患者</span>
+              <strong style="font-size: 18px; color: #2196F3;">15名</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eee;">
+              <span style="color: #666;">本日会計完了</span>
+              <strong style="font-size: 18px; color: #4CAF50;">12件</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #eee;">
+              <span style="color: #666;">今月患者数</span>
+              <strong style="font-size: 18px; color: #2196F3;">650名</strong>
+            </div>
+            <div style="display: flex; justify-content: space-between; padding: 12px 0;">
+              <span style="color: #666;">今月売上</span>
+              <strong style="font-size: 18px; color: #4CAF50;">¥3,250,000</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- フッター -->
+  <footer class="footer">
+    © 2024 Medical System. All rights reserved. | ヘルプ | バージョン 1.0.0
+  </footer>
+
+  <script>
+    function logout() {
+      if (confirm('ログアウトしますか？')) {
+        window.location.href = 'login.html';
+      }
+    }
+  </script>
+</body>
+</html>

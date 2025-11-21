@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>医療カルテシステム - 画面モック一覧</title>
+  <link rel="stylesheet" href="css/common.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .mockup-container {
+      background-color: white;
+      border-radius: 16px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      padding: 50px;
+      max-width: 900px;
+      width: 100%;
+    }
+
+    .mockup-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .mockup-logo {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 30px;
+      color: white;
+      font-size: 48px;
+    }
+
+    .mockup-title {
+      font-size: 32px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .mockup-subtitle {
+      font-size: 16px;
+      color: #666;
+    }
+
+    .screen-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .screen-card {
+      background-color: #f8f9fa;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      padding: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .screen-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      border-color: #2196F3;
+    }
+
+    .screen-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .screen-name {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .screen-description {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .category-title {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+      margin: 40px 0 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #2196F3;
+    }
+
+    .info-section {
+      background-color: #e3f2fd;
+      border-left: 4px solid #2196F3;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .info-section h3 {
+      color: #1976d2;
+      margin-bottom: 10px;
+    }
+
+    .info-section ul {
+      margin-left: 20px;
+      color: #333;
+    }
+
+    .info-section li {
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="mockup-container">
+    <div class="mockup-header">
+      <div class="mockup-logo">📋</div>
+      <h1 class="mockup-title">医療カルテシステム</h1>
+      <p class="mockup-subtitle">Electronic Medical Record System - 画面モック集</p>
+    </div>
+
+    <div class="info-section">
+      <h3>📌 このモックについて</h3>
+      <ul>
+        <li>医療カルテシステムの主要画面のHTMLモックです</li>
+        <li>実際のデータベース連携は行っていません（デモ用）</li>
+        <li>画面遷移とUIの確認が目的です</li>
+        <li>各画面のデザインと操作フローを体験できます</li>
+      </ul>
+    </div>
+
+    <h2 class="category-title">🔐 認証・共通</h2>
+    <div class="screen-grid">
+      <a href="login.html" class="screen-card">
+        <div class="screen-icon">🔑</div>
+        <div class="screen-name">ログイン画面</div>
+        <div class="screen-description">システムへのログイン認証</div>
+      </a>
+
+      <a href="dashboard.html" class="screen-card">
+        <div class="screen-icon">📊</div>
+        <div class="screen-name">ダッシュボード</div>
+        <div class="screen-description">本日の予定、アラート、統計情報</div>
+      </a>
+    </div>
+
+    <h2 class="category-title">👥 患者管理</h2>
+    <div class="screen-grid">
+      <a href="patient-search.html" class="screen-card">
+        <div class="screen-icon">🔍</div>
+        <div class="screen-name">患者検索</div>
+        <div class="screen-description">患者の検索・選択</div>
+      </a>
+    </div>
+
+    <h2 class="category-title">📝 診療管理</h2>
+    <div class="screen-grid">
+      <a href="medical-record.html" class="screen-card">
+        <div class="screen-icon">📝</div>
+        <div class="screen-name">カルテ記録</div>
+        <div class="screen-description">SOAP形式での診療記録</div>
+      </a>
+    </div>
+
+    <h2 class="category-title">💊 オーダー管理</h2>
+    <div class="screen-grid">
+      <a href="prescription-order.html" class="screen-card">
+        <div class="screen-icon">💊</div>
+        <div class="screen-name">処方オーダー</div>
+        <div class="screen-description">処方箋の作成・アレルギーチェック</div>
+      </a>
+    </div>
+
+    <div class="info-section" style="background-color: #fff3e0; border-left-color: #ff9800;">
+      <h3>⚙️ 操作ガイド</h3>
+      <ul>
+        <li><strong>ログイン:</strong> 任意のユーザーID・パスワードでログイン可能（デモ用）</li>
+        <li><strong>患者検索:</strong> 検索結果から患者を選択するとカルテ記録画面へ遷移</li>
+        <li><strong>カルテ記録:</strong> SOAP形式で診療内容を入力、署名で確定</li>
+        <li><strong>処方オーダー:</strong> アレルギーチェック機能のデモを確認できます</li>
+        <li><strong>画面遷移:</strong> ナビゲーションバーやボタンから各画面へ移動</li>
+      </ul>
+    </div>
+
+    <div class="info-section" style="background-color: #e8f5e9; border-left-color: #4caf50;">
+      <h3>✨ 主な機能デモ</h3>
+      <ul>
+        <li><strong>アレルギーチェック:</strong> 処方オーダー画面で自動チェックを体験</li>
+        <li><strong>SOAP記録:</strong> 標準的な診療記録フォーマット</li>
+        <li><strong>電子署名:</strong> カルテ確定のフロー</li>
+        <li><strong>リアルタイム通知:</strong> ダッシュボードのアラート表示</li>
+        <li><strong>統計情報:</strong> 当日の診療状況の可視化</li>
+      </ul>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; padding-top: 30px; border-top: 2px solid #e9ecef;">
+      <p style="color: #666; margin-bottom: 10px;">
+        📁 <strong>設計ドキュメント:</strong> <a href="../requirements/01_運用イメージ.md" style="color: #2196F3;">運用イメージ</a> | 
+        <a href="../models/02_データモデル設計.md" style="color: #2196F3;">データモデル</a> | 
+        <a href="../design/03_機能概要設計.md" style="color: #2196F3;">機能概要</a> | 
+        <a href="../screens/04_画面一覧.md" style="color: #2196F3;">画面一覧</a>
+      </p>
+      <p style="color: #999; font-size: 13px;">
+        © 2024 Medical System. All rights reserved.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    console.log('医療カルテシステム 画面モック v1.0');
+    console.log('作成画面: ログイン、ダッシュボード、患者検索、カルテ記録、処方オーダー');
+  </script>
+</body>
+</html>

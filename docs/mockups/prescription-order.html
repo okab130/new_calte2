@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>処方オーダー - 医療カルテシステム</title>
+  <link rel="stylesheet" href="css/common.css">
+  <style>
+    .patient-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .patient-info {
+      display: flex;
+      gap: 30px;
+    }
+
+    .patient-info-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .patient-info-label {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .patient-info-value {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .prescription-item {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .prescription-item.allergy-warning {
+      border-color: #F44336;
+      background-color: #FFEBEE;
+    }
+
+    .prescription-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .prescription-name {
+      font-size: 16px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .prescription-details {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .detail-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .detail-label {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 4px;
+    }
+
+    .detail-value {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .check-results {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .check-item {
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .check-item.warning {
+      background-color: #FFF3E0;
+      border-left: 4px solid #FF9800;
+    }
+
+    .check-item.error {
+      background-color: #FFEBEE;
+      border-left: 4px solid #F44336;
+    }
+
+    .check-item.info {
+      background-color: #E3F2FD;
+      border-left: 4px solid #2196F3;
+    }
+  </style>
+</head>
+<body>
+  <!-- ヘッダー -->
+  <header class="header">
+    <div class="header-left">
+      <div class="header-logo">📋 医療カルテシステム</div>
+    </div>
+    <div class="header-right">
+      <div class="user-info">
+        <span>👤 山田医師 様</span>
+        <button class="btn btn-outline" style="color: white; border-color: white;" onclick="location.href='login.html'">ログアウト</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ナビゲーションバー -->
+  <nav class="navbar">
+    <ul class="nav-menu">
+      <li class="nav-item" onclick="location.href='dashboard.html'">ホーム</li>
+      <li class="nav-item" onclick="location.href='patient-search.html'">患者</li>
+      <li class="nav-item" onclick="location.href='medical-record.html'">診療</li>
+      <li class="nav-item active">オーダー</li>
+      <li class="nav-item">予約</li>
+      <li class="nav-item">会計</li>
+      <li class="nav-item">レポート</li>
+      <li class="nav-item">設定</li>
+    </ul>
+  </nav>
+
+  <!-- メインコンテナ -->
+  <div class="main-container">
+    <!-- サイドバー -->
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li class="sidebar-item" onclick="location.href='dashboard.html'">ダッシュボード</li>
+        <li class="sidebar-item" onclick="location.href='patient-search.html'">患者検索</li>
+        <li class="sidebar-item" onclick="location.href='medical-record.html'">カルテ記録</li>
+        <li class="sidebar-item active">処方オーダー</li>
+        <li class="sidebar-item">検査オーダー</li>
+        <li class="sidebar-item">予約管理</li>
+      </ul>
+    </aside>
+
+    <!-- メインコンテンツ -->
+    <main class="main-content">
+      <h1 style="margin-bottom: 20px;">💊 処方オーダー</h1>
+
+      <!-- 患者情報ヘッダー -->
+      <div class="patient-header">
+        <div class="patient-info">
+          <div class="patient-info-item">
+            <span class="patient-info-label">患者番号</span>
+            <span class="patient-info-value">000001</span>
+          </div>
+          <div class="patient-info-item">
+            <span class="patient-info-label">氏名</span>
+            <span class="patient-info-value">山田 太郎</span>
+          </div>
+          <div class="patient-info-item">
+            <span class="patient-info-label">性別 / 年齢</span>
+            <span class="patient-info-value">男性 / 44歳</span>
+          </div>
+          <div class="patient-info-item">
+            <span class="patient-info-label">生年月日</span>
+            <span class="patient-info-value">1980/01/01</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- タブメニュー -->
+      <div class="tabs">
+        <div class="tab active">⚠️ アレルギー情報</div>
+        <div class="tab">💊 処方履歴</div>
+        <div class="tab">📚 お薬手帳</div>
+      </div>
+
+      <!-- アレルギー警告 -->
+      <div class="alert alert-danger">
+        <span>⚠️</span>
+        <div>
+          <strong>アレルギー情報</strong>
+          <div style="font-size: 13px; margin-top: 4px;">ペニシリン系抗生剤（アナフィラキシー） - 重症度: 高</div>
+        </div>
+      </div>
+
+      <!-- 処方区分 -->
+      <div class="card">
+        <div class="card-header">処方区分</div>
+        <div class="card-body">
+          <div style="display: flex; gap: 30px;">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="radio" name="prescriptionType" value="external" checked>
+              <span>院外処方</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="radio" name="prescriptionType" value="internal">
+              <span>院内処方</span>
+            </label>
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+              <input type="radio" name="prescriptionType" value="injection">
+              <span>注射</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 処方内容 -->
+      <div class="card">
+        <div class="card-header flex-between">
+          <span>処方内容</span>
+          <div style="display: flex; gap: 10px;">
+            <button class="btn btn-outline" onclick="showSetPrescription()">
+              📋 セット処方
+            </button>
+            <button class="btn btn-secondary" onclick="searchMedication()">
+              🔍 薬剤検索
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <!-- 処方1 -->
+          <div class="prescription-item">
+            <div class="prescription-header">
+              <div>
+                <div class="prescription-name">1. カロナール錠 200mg</div>
+                <div style="font-size: 12px; color: #666; margin-top: 4px;">解熱鎮痛剤</div>
+              </div>
+              <button class="btn btn-danger" style="padding: 6px 12px; font-size: 13px;" onclick="removePrescription(1)">
+                🗑️ 削除
+              </button>
+            </div>
+            <div class="prescription-details">
+              <div class="detail-item">
+                <span class="detail-label">1回量</span>
+                <span class="detail-value">1錠</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">用法</span>
+                <span class="detail-value">1日3回毎食後</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">日数</span>
+                <span class="detail-value">3日分</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">総量</span>
+                <span class="detail-value">9錠</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 処方2（アレルギー警告） -->
+          <div class="prescription-item allergy-warning">
+            <div class="prescription-header">
+              <div>
+                <div class="prescription-name">
+                  2. アモキシシリンカプセル 250mg 
+                  <span class="badge badge-danger" style="margin-left: 10px;">⚠️ アレルギー</span>
+                </div>
+                <div style="font-size: 12px; color: #666; margin-top: 4px;">ペニシリン系抗生物質</div>
+              </div>
+              <button class="btn btn-danger" style="padding: 6px 12px; font-size: 13px;" onclick="removePrescription(2)">
+                🗑️ 削除
+              </button>
+            </div>
+            <div class="prescription-details">
+              <div class="detail-item">
+                <span class="detail-label">1回量</span>
+                <span class="detail-value">1カプセル</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">用法</span>
+                <span class="detail-value">1日3回毎食後</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">日数</span>
+                <span class="detail-value">5日分</span>
+              </div>
+              <div class="detail-item">
+                <span class="detail-label">総量</span>
+                <span class="detail-value">15カプセル</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 20px;">
+            <button class="btn btn-secondary" onclick="addMedication()">
+              ➕ 薬剤追加
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- チェック結果 -->
+      <div class="card">
+        <div class="card-header">🔍 チェック結果</div>
+        <div class="card-body">
+          <div class="check-item error">
+            <span style="font-size: 24px;">🔴</span>
+            <div>
+              <strong>警告: アレルギー該当</strong>
+              <div style="font-size: 13px; margin-top: 4px;">
+                アモキシシリンは患者のアレルギー情報（ペニシリン系抗生剤）に該当します。<br>
+                過去にアナフィラキシー反応の記録があります。投与を続けますか？
+              </div>
+            </div>
+          </div>
+
+          <div class="check-item info">
+            <span style="font-size: 24px;">ℹ️</span>
+            <div>
+              <strong>情報: 同効薬の重複</strong>
+              <div style="font-size: 13px; margin-top: 4px;">
+                同効薬の重複はありません
+              </div>
+            </div>
+          </div>
+
+          <div class="check-item info">
+            <span style="font-size: 24px;">ℹ️</span>
+            <div>
+              <strong>情報: 薬剤相互作用</strong>
+              <div style="font-size: 13px; margin-top: 4px;">
+                薬剤相互作用は検出されませんでした
+              </div>
+            </div>
+          </div>
+
+          <div class="check-item info">
+            <span style="font-size: 24px;">✅</span>
+            <div>
+              <strong>情報: 投与量チェック</strong>
+              <div style="font-size: 13px; margin-top: 4px;">
+                投与量は適正範囲内です
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 備考・指示事項 -->
+      <div class="card">
+        <div class="card-header">備考・指示事項</div>
+        <div class="card-body">
+          <textarea class="form-textarea" rows="3" placeholder="備考や服薬指導内容を入力...">発熱時のみ服用可
+水分を十分に摂取すること</textarea>
+        </div>
+      </div>
+
+      <!-- アクションボタン -->
+      <div class="card">
+        <div class="card-body">
+          <div class="btn-group" style="justify-content: center;">
+            <button class="btn btn-outline" onclick="previewPrescription()">
+              👁️ 処方箋プレビュー
+            </button>
+            <button class="btn btn-primary" onclick="submitOrder()">
+              📝 オーダー
+            </button>
+            <button class="btn btn-danger" onclick="cancelOrder()">
+              ❌ キャンセル
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- フッター -->
+  <footer class="footer">
+    © 2024 Medical System. All rights reserved. | ヘルプ | バージョン 1.0.0
+  </footer>
+
+  <script>
+    function showSetPrescription() {
+      alert('セット処方の一覧を表示します');
+    }
+
+    function searchMedication() {
+      const name = prompt('薬剤名を入力してください:');
+      if (name) {
+        alert(`「${name}」を検索します`);
+      }
+    }
+
+    function removePrescription(id) {
+      if (confirm(`処方${id}を削除しますか？`)) {
+        alert(`処方${id}を削除しました`);
+      }
+    }
+
+    function addMedication() {
+      alert('薬剤検索画面を表示します');
+    }
+
+    function previewPrescription() {
+      alert('処方箋のプレビューを表示します');
+    }
+
+    function submitOrder() {
+      // アレルギーチェック
+      if (confirm('⚠️ 警告\n\nアモキシシリンは患者のアレルギー情報に該当します。\n過去にアナフィラキシー反応の記録があります。\n\n処方を続けますか？')) {
+        if (confirm('処方オーダーを確定しますか？')) {
+          alert('✅ 処方オーダーを送信しました\n\n薬剤部に通知されました。');
+          location.href = 'medical-record.html';
+        }
+      }
+    }
+
+    function cancelOrder() {
+      if (confirm('処方オーダーをキャンセルしますか？\n入力内容は保存されません。')) {
+        location.href = 'medical-record.html';
+      }
+    }
+  </script>
+</body>
+</html>

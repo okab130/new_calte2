@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>患者検索 - 医療カルテシステム</title>
+  <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+  <!-- ヘッダー -->
+  <header class="header">
+    <div class="header-left">
+      <div class="header-logo">📋 医療カルテシステム</div>
+    </div>
+    <div class="header-right">
+      <div class="user-info">
+        <span>👤 山田医師 様</span>
+        <button class="btn btn-outline" style="color: white; border-color: white;" onclick="location.href='login.html'">ログアウト</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ナビゲーションバー -->
+  <nav class="navbar">
+    <ul class="nav-menu">
+      <li class="nav-item" onclick="location.href='dashboard.html'">ホーム</li>
+      <li class="nav-item active">患者</li>
+      <li class="nav-item" onclick="location.href='medical-record.html'">診療</li>
+      <li class="nav-item">オーダー</li>
+      <li class="nav-item">予約</li>
+      <li class="nav-item">会計</li>
+      <li class="nav-item">レポート</li>
+      <li class="nav-item">設定</li>
+    </ul>
+  </nav>
+
+  <!-- メインコンテナ -->
+  <div class="main-container">
+    <!-- サイドバー -->
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li class="sidebar-item" onclick="location.href='dashboard.html'">ダッシュボード</li>
+        <li class="sidebar-item active">患者検索</li>
+        <li class="sidebar-item">カルテ記録</li>
+        <li class="sidebar-item">処方オーダー</li>
+        <li class="sidebar-item">検査オーダー</li>
+        <li class="sidebar-item">予約管理</li>
+      </ul>
+    </aside>
+
+    <!-- メインコンテンツ -->
+    <main class="main-content">
+      <h1 style="margin-bottom: 30px;">🔍 患者検索</h1>
+
+      <!-- 検索フォーム -->
+      <div class="search-form">
+        <h3 style="margin-bottom: 20px;">検索条件</h3>
+        <form id="searchForm">
+          <div class="form-row">
+            <div class="form-col">
+              <div class="form-group">
+                <label class="form-label" for="patientNumber">患者番号</label>
+                <input type="text" id="patientNumber" class="form-input" placeholder="例: 000001">
+              </div>
+            </div>
+            <div class="form-col">
+              <div class="form-group">
+                <label class="form-label" for="phoneNumber">電話番号</label>
+                <input type="tel" id="phoneNumber" class="form-input" placeholder="例: 03-1234-5678">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-col">
+              <div class="form-group">
+                <label class="form-label" for="lastNameKana">姓（カナ）</label>
+                <input type="text" id="lastNameKana" class="form-input" placeholder="例: ヤマダ">
+              </div>
+            </div>
+            <div class="form-col">
+              <div class="form-group">
+                <label class="form-label" for="firstNameKana">名（カナ）</label>
+                <input type="text" id="firstNameKana" class="form-input" placeholder="例: タロウ">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-col">
+              <div class="form-group">
+                <label class="form-label" for="birthDate">生年月日</label>
+                <input type="date" id="birthDate" class="form-input">
+              </div>
+            </div>
+            <div class="form-col">
+              <div class="form-group">
+                <label class="form-label" for="gender">性別</label>
+                <select id="gender" class="form-select">
+                  <option value="">すべて</option>
+                  <option value="M">男性</option>
+                  <option value="F">女性</option>
+                  <option value="O">その他</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="btn-group" style="justify-content: center;">
+            <button type="submit" class="btn btn-primary">
+              🔍 検索
+            </button>
+            <button type="reset" class="btn btn-outline">
+              🔄 クリア
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- 検索結果 -->
+      <div class="card">
+        <div class="card-header flex-between">
+          <span>検索結果: <strong id="resultCount">10件</strong></span>
+          <button class="btn btn-secondary" onclick="location.href='patient-register.html'">
+            ➕ 新規患者登録
+          </button>
+        </div>
+        <div class="card-body">
+          <table class="table" id="resultTable">
+            <thead>
+              <tr>
+                <th>患者番号</th>
+                <th>氏名</th>
+                <th>カナ</th>
+                <th>生年月日</th>
+                <th>性別</th>
+                <th>年齢</th>
+                <th>電話番号</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr onclick="selectPatient('000001', '山田 太郎')">
+                <td>000001</td>
+                <td>山田 太郎</td>
+                <td>ヤマダ タロウ</td>
+                <td>1980/01/01</td>
+                <td>男</td>
+                <td>44歳</td>
+                <td>03-1234-5678</td>
+                <td>
+                  <button class="btn btn-primary" style="padding: 6px 12px; font-size: 13px;" onclick="event.stopPropagation(); viewPatient('000001')">
+                    詳細
+                  </button>
+                </td>
+              </tr>
+              <tr onclick="selectPatient('000002', '佐藤 花子')">
+                <td>000002</td>
+                <td>佐藤 花子</td>
+                <td>サトウ ハナコ</td>
+                <td>1975/05/15</td>
+                <td>女</td>
+                <td>49歳</td>
+                <td>03-2345-6789</td>
+                <td>
+                  <button class="btn btn-primary" style="padding: 6px 12px; font-size: 13px;" onclick="event.stopPropagation(); viewPatient('000002')">
+                    詳細
+                  </button>
+                </td>
+              </tr>
+              <tr onclick="selectPatient('000003', '鈴木 一郎')">
+                <td>000003</td>
+                <td>鈴木 一郎</td>
+                <td>スズキ イチロウ</td>
+                <td>1990/03/20</td>
+                <td>男</td>
+                <td>34歳</td>
+                <td>03-3456-7890</td>
+                <td>
+                  <button class="btn btn-primary" style="padding: 6px 12px; font-size: 13px;" onclick="event.stopPropagation(); viewPatient('000003')">
+                    詳細
+                  </button>
+                </td>
+              </tr>
+              <tr onclick="selectPatient('000004', '田中 美咲')">
+                <td>000004</td>
+                <td>田中 美咲</td>
+                <td>タナカ ミサキ</td>
+                <td>1988/07/12</td>
+                <td>女</td>
+                <td>36歳</td>
+                <td>03-4567-8901</td>
+                <td>
+                  <button class="btn btn-primary" style="padding: 6px 12px; font-size: 13px;" onclick="event.stopPropagation(); viewPatient('000004')">
+                    詳細
+                  </button>
+                </td>
+              </tr>
+              <tr onclick="selectPatient('000005', '高橋 健太')">
+                <td>000005</td>
+                <td>高橋 健太</td>
+                <td>タカハシ ケンタ</td>
+                <td>1995/11/08</td>
+                <td>男</td>
+                <td>29歳</td>
+                <td>03-5678-9012</td>
+                <td>
+                  <button class="btn btn-primary" style="padding: 6px 12px; font-size: 13px;" onclick="event.stopPropagation(); viewPatient('000005')">
+                    詳細
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- ページネーション -->
+          <div class="pagination">
+            <div class="page-item">«</div>
+            <div class="page-item active">1</div>
+            <div class="page-item">2</div>
+            <div class="page-item">3</div>
+            <div class="page-item">»</div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- フッター -->
+  <footer class="footer">
+    © 2024 Medical System. All rights reserved. | ヘルプ | バージョン 1.0.0
+  </footer>
+
+  <script>
+    // 検索フォームの送信
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const patientNumber = document.getElementById('patientNumber').value;
+      const lastNameKana = document.getElementById('lastNameKana').value;
+      const firstNameKana = document.getElementById('firstNameKana').value;
+      const birthDate = document.getElementById('birthDate').value;
+      const phoneNumber = document.getElementById('phoneNumber').value;
+      
+      if (!patientNumber && !lastNameKana && !firstNameKana && !birthDate && !phoneNumber) {
+        alert('検索条件を1つ以上入力してください');
+        return;
+      }
+
+      // 検索処理（デモ用）
+      alert('検索を実行しました');
+    });
+
+    // 患者選択
+    function selectPatient(id, name) {
+      if (confirm(`患者「${name}」を選択しますか？`)) {
+        sessionStorage.setItem('selectedPatientId', id);
+        sessionStorage.setItem('selectedPatientName', name);
+        location.href = 'medical-record.html';
+      }
+    }
+
+    // 患者詳細表示
+    function viewPatient(id) {
+      alert(`患者番号 ${id} の詳細情報を表示します`);
+    }
+  </script>
+</body>
+</html>

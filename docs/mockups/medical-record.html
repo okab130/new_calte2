@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>カルテ記録 - 医療カルテシステム</title>
+  <link rel="stylesheet" href="css/common.css">
+  <style>
+    .patient-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .patient-info {
+      display: flex;
+      gap: 30px;
+    }
+
+    .patient-info-item {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .patient-info-label {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .patient-info-value {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .soap-section {
+      background-color: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .soap-header {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      padding: 10px;
+      background-color: #f5f5f5;
+      border-left: 4px solid #2196F3;
+    }
+
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .toolbar button {
+      padding: 6px 12px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <!-- ヘッダー -->
+  <header class="header">
+    <div class="header-left">
+      <div class="header-logo">📋 医療カルテシステム</div>
+    </div>
+    <div class="header-right">
+      <div class="user-info">
+        <span>👤 山田医師 様</span>
+        <button class="btn btn-outline" style="color: white; border-color: white;" onclick="location.href='login.html'">ログアウト</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ナビゲーションバー -->
+  <nav class="navbar">
+    <ul class="nav-menu">
+      <li class="nav-item" onclick="location.href='dashboard.html'">ホーム</li>
+      <li class="nav-item" onclick="location.href='patient-search.html'">患者</li>
+      <li class="nav-item active">診療</li>
+      <li class="nav-item">オーダー</li>
+      <li class="nav-item">予約</li>
+      <li class="nav-item">会計</li>
+      <li class="nav-item">レポート</li>
+      <li class="nav-item">設定</li>
+    </ul>
+  </nav>
+
+  <!-- メインコンテナ -->
+  <div class="main-container">
+    <!-- サイドバー -->
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li class="sidebar-item" onclick="location.href='dashboard.html'">ダッシュボード</li>
+        <li class="sidebar-item" onclick="location.href='patient-search.html'">患者検索</li>
+        <li class="sidebar-item active">カルテ記録</li>
+        <li class="sidebar-item" onclick="location.href='prescription-order.html'">処方オーダー</li>
+        <li class="sidebar-item">検査オーダー</li>
+        <li class="sidebar-item">予約管理</li>
+      </ul>
+    </aside>
+
+    <!-- メインコンテンツ -->
+    <main class="main-content">
+      <h1 style="margin-bottom: 20px;">📝 カルテ記録（SOAP形式）</h1>
+
+      <!-- 患者情報ヘッダー -->
+      <div class="patient-header">
+        <div class="patient-info">
+          <div class="patient-info-item">
+            <span class="patient-info-label">患者番号</span>
+            <span class="patient-info-value" id="patientNumber">000001</span>
+          </div>
+          <div class="patient-info-item">
+            <span class="patient-info-label">氏名</span>
+            <span class="patient-info-value" id="patientName">山田 太郎</span>
+          </div>
+          <div class="patient-info-item">
+            <span class="patient-info-label">性別 / 年齢</span>
+            <span class="patient-info-value">男性 / 44歳</span>
+          </div>
+          <div class="patient-info-item">
+            <span class="patient-info-label">生年月日</span>
+            <span class="patient-info-value">1980/01/01</span>
+          </div>
+        </div>
+        <div>
+          <button class="btn btn-outline" style="color: white; border-color: white;" onclick="showPatientInfo()">
+            📋 患者詳細
+          </button>
+        </div>
+      </div>
+
+      <!-- タブメニュー -->
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab('allergy')">⚠️ アレルギー情報</div>
+        <div class="tab" onclick="switchTab('history')">📜 既往歴</div>
+        <div class="tab" onclick="switchTab('prescription')">💊 処方履歴</div>
+        <div class="tab" onclick="switchTab('lab')">🧪 検査結果</div>
+      </div>
+
+      <!-- アレルギー警告 -->
+      <div class="alert alert-danger" style="margin-bottom: 20px;">
+        <span>⚠️</span>
+        <div>
+          <strong>アレルギー情報</strong>
+          <div style="font-size: 13px; margin-top: 4px;">ペニシリン系抗生剤（アナフィラキシー）</div>
+        </div>
+      </div>
+
+      <!-- 記録情報 -->
+      <div class="card">
+        <div class="card-body">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div>
+              <strong>記録日時:</strong> <span id="recordDate">2024/01/15 10:30</span>
+            </div>
+            <div>
+              <strong>記録者:</strong> <span id="recordStaff">山田医師</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- S: Subjective（自覚症状・主訴） -->
+      <div class="soap-section">
+        <div class="soap-header">S: Subjective（自覚症状・主訴）</div>
+        <div class="toolbar">
+          <button class="btn btn-outline">
+            📋 テンプレート
+          </button>
+          <button class="btn btn-outline">
+            🎤 音声入力
+          </button>
+        </div>
+        <textarea class="form-textarea" id="subjective" rows="5" placeholder="患者の訴え、自覚症状を記録...">3日前より咳嗽、発熱あり。
+昨夜より38度台の発熱継続。
+倦怠感が強く、食欲も低下している。</textarea>
+      </div>
+
+      <!-- O: Objective（他覚所見） -->
+      <div class="soap-section">
+        <div class="soap-header">O: Objective（他覚所見）</div>
+        <div class="toolbar">
+          <button class="btn btn-outline" onclick="insertVitals()">
+            📊 バイタル挿入
+          </button>
+        </div>
+        <textarea class="form-textarea" id="objective" rows="5" placeholder="検査所見、身体所見を記録...">BT 38.2℃ BP 120/80 PR 82 SpO2 97%
+咽頭発赤(+) 扁桃腫大(+)
+頸部リンパ節腫脹(+)
+肺音: 清、ラ音なし</textarea>
+      </div>
+
+      <!-- A: Assessment（評価・診断） -->
+      <div class="soap-section">
+        <div class="soap-header">A: Assessment（評価・診断）</div>
+        <textarea class="form-textarea" id="assessment" rows="4" placeholder="診断、評価を記録...">急性上気道炎
+細菌感染の可能性あり</textarea>
+        <div style="margin-top: 10px;">
+          <button class="btn btn-secondary" onclick="registerDisease()">
+            ➕ 病名登録
+          </button>
+        </div>
+      </div>
+
+      <!-- P: Plan（計画・治療方針） -->
+      <div class="soap-section">
+        <div class="soap-header">P: Plan（計画・治療方針）</div>
+        <textarea class="form-textarea" id="plan" rows="5" placeholder="治療計画、処方内容を記録...">対症療法
+解熱鎮痛剤、抗生剤投与
+十分な水分摂取と安静を指導
+3日後再診指示</textarea>
+        <div style="margin-top: 10px; display: flex; gap: 10px;">
+          <button class="btn btn-secondary" onclick="location.href='prescription-order.html'">
+            💊 処方オーダー
+          </button>
+          <button class="btn btn-secondary">
+            🧪 検査オーダー
+          </button>
+          <button class="btn btn-secondary">
+            📅 次回予約
+          </button>
+        </div>
+      </div>
+
+      <!-- アクションボタン -->
+      <div class="card">
+        <div class="card-body">
+          <div class="btn-group" style="justify-content: center;">
+            <button class="btn btn-outline" onclick="saveDraft()">
+              💾 一時保存
+            </button>
+            <button class="btn btn-primary" onclick="signRecord()">
+              ✍️ 署名して確定
+            </button>
+            <button class="btn btn-danger" onclick="cancelRecord()">
+              ❌ キャンセル
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- フッター -->
+  <footer class="footer">
+    © 2024 Medical System. All rights reserved. | ヘルプ | バージョン 1.0.0
+  </footer>
+
+  <script>
+    // ページ読み込み時の処理
+    window.addEventListener('DOMContentLoaded', function() {
+      const patientId = sessionStorage.getItem('selectedPatientId');
+      const patientName = sessionStorage.getItem('selectedPatientName');
+      
+      if (patientId) {
+        document.getElementById('patientNumber').textContent = patientId;
+      }
+      if (patientName) {
+        document.getElementById('patientName').textContent = patientName;
+      }
+
+      // 現在日時をセット
+      const now = new Date();
+      const dateStr = `${now.getFullYear()}/${String(now.getMonth()+1).padStart(2,'0')}/${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
+      document.getElementById('recordDate').textContent = dateStr;
+    });
+
+    function switchTab(tab) {
+      alert(`${tab}タブを表示します`);
+    }
+
+    function showPatientInfo() {
+      alert('患者詳細情報を表示します');
+    }
+
+    function insertVitals() {
+      const vitals = '\nBT 37.2℃ BP 120/80 PR 75 SpO2 98%';
+      const textarea = document.getElementById('objective');
+      textarea.value += vitals;
+    }
+
+    function registerDisease() {
+      alert('病名登録画面を表示します');
+    }
+
+    function saveDraft() {
+      if (confirm('カルテを一時保存しますか？')) {
+        alert('カルテを一時保存しました');
+      }
+    }
+
+    function signRecord() {
+      const s = document.getElementById('subjective').value;
+      const o = document.getElementById('objective').value;
+      const a = document.getElementById('assessment').value;
+      const p = document.getElementById('plan').value;
+
+      if (!s && !o && !a && !p) {
+        alert('カルテ内容を入力してください');
+        return;
+      }
+
+      if (confirm('カルテに署名して確定しますか？\n確定後は編集できません。')) {
+        alert('カルテに署名しました。診療を完了します。');
+        location.href = 'dashboard.html';
+      }
+    }
+
+    function cancelRecord() {
+      if (confirm('カルテの記録をキャンセルしますか？\n入力内容は保存されません。')) {
+        location.href = 'dashboard.html';
+      }
+    }
+  </script>
+</body>
+</html>

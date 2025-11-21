@@ -1,301 +1,76 @@
-<<<<<<< HEAD
-# 医療カルテシステム - 実装完了
+# 医療カルテシステム
 
-完全な医療カルテシステムの設計・開発を実施しました。
+完全な医療カルテシステムの設計・開発・実装が完了したプロジェクトです。
 
 ## 📁 プロジェクト構成
 
 ```
-new_calte/
+new_calte2/
 ├── README.md                    # このファイル
-├── docs/                        # 設計ドキュメント
-│   ├── requirements/           # 要件定義
-│   │   └── 01_運用イメージ.md
-│   ├── models/                 # データモデル
-│   │   └── 02_データモデル設計.md
-│   ├── design/                 # 機能設計
-│   │   └── 03_機能概要設計.md
-│   ├── screens/                # 画面設計
-│   │   ├── 04_画面一覧.md
-│   │   └── 05_画面詳細設計.md
-│   └── mockups/                # 画面モック（HTML）
-│       ├── index.html          # モック一覧
-│       ├── login.html          # ログイン画面
-│       ├── dashboard.html      # ダッシュボード
-│       ├── patient-search.html # 患者検索
-│       ├── medical-record.html # カルテ記録
-│       ├── prescription-order.html # 処方オーダー
-│       └── css/common.css      # 共通スタイル
-└── backend/                    # バックエンドAPI
-    ├── src/
-    │   ├── server.js          # Expressサーバー
-    │   ├── config/            # 設定ファイル
-    │   ├── routes/            # APIルート
-    │   ├── middleware/        # ミドルウェア
-    │   └── models/            # データモデル
-    ├── database/
-    │   └── init.sql           # DB初期化スクリプト
-    └── tests/                 # テストコード
+├── SETUP.md                     # セットアップ手順書（詳細版）
+├── 01_要件定義・前提条件.md
+├── 02_データモデル設計.md
+├── 03_運用フロー・機能概要設計.md
+├── 04_画面一覧・画面詳細設計.md
+├── 05_技術仕様・アーキテクチャ設計.md
+├── docs/                        # 詳細設計ドキュメント
+│   ├── requirements/
+│   ├── models/
+│   ├── design/
+│   ├── screens/
+│   └── mockups/                # HTML画面モック
+├── backend/                    # バックエンドAPI
+│   ├── src/
+│   ├── database/
+│   ├── tests/
+│   └── prisma/
+├── frontend/                   # フロントエンド（React）
+│   └── src/
+└── mockups/                   # HTMLモックアップ
 ```
 
 ## 🎯 完成した成果物
 
-### 1. 設計ドキュメント（6種類）
+### 1. 設計ドキュメント（完備）
+- ✅ 要件定義・前提条件
+- ✅ データモデル設計（37テーブル）
+- ✅ 運用フロー・機能概要設計
+- ✅ 画面一覧（76画面）・画面詳細設計
+- ✅ 技術仕様・アーキテクチャ設計
 
-✅ **運用イメージ**: システム概要、運用フロー、期待効果  
-✅ **データモデル設計**: 37テーブルの詳細定義、ER図、インデックス戦略  
-✅ **機能概要設計**: 9つの機能群、システム構成、非機能要件  
-✅ **画面一覧**: 76画面の完全一覧、画面遷移図  
-✅ **画面詳細設計**: 主要10画面の詳細仕様  
-✅ **画面モック**: HTML/CSS による実動作可能なモック（5画面）
+### 2. バックエンド実装
+- ✅ Node.js + Express + PostgreSQL/Prisma
+- ✅ 認証API（JWT）
+- ✅ 患者管理API
+- ✅ 来院記録API
+- ✅ カルテ記録API
+- ✅ 処方オーダーAPI
+- ✅ 配送管理API
 
-### 2. バックエンドAPI（Node.js + Express + PostgreSQL）
+### 3. フロントエンド実装
+- ✅ React + Redux + Material-UI
+- ✅ ログイン画面
+- ✅ ダッシュボード
+- ✅ 配送依頼一覧
 
-✅ **認証API**: ログイン、トークン検証、ロールベースアクセス制御  
-✅ **患者管理API**: 検索、登録、更新、詳細取得  
-✅ **来院記録API**: 来院登録、履歴取得、本日の来院一覧  
-✅ **カルテ記録API**: SOAP形式カルテ作成、署名機能  
-✅ **処方オーダーAPI**: 処方作成、履歴取得、薬剤検索
-
-### 3. データベース
-
-✅ **PostgreSQL スキーマ**: 14テーブル（主要機能対応）  
-✅ **初期データ**: デモユーザー、患者、薬剤データ  
-✅ **インデックス**: パフォーマンス最適化
+### 4. モックアップ
+- ✅ HTML/CSSによる9画面のモックアップ
 
 ## 🚀 クイックスタート
 
 ### 前提条件
+- **Node.js** 20.x 以上
+- **PostgreSQL** 14.x 以上
+- **npm** 9.x 以上
 
-- Node.js 18以上
-- PostgreSQL 14以上
-
-### 1. データベースセットアップ
-
-```bash
-# PostgreSQLにログイン
-psql -U postgres
-
-# データベース作成
-CREATE DATABASE medical_record_db;
-
-# スキーマ・初期データ投入
-\c medical_record_db
-\i backend/database/init.sql
-```
-
-### 2. バックエンド起動
+### 1. リポジトリのクローン
 
 ```bash
-cd backend
-npm install
-npm run dev
+git clone https://github.com/okab130/new_calte2.git
+cd new_calte2
 ```
 
-サーバーが `http://localhost:3000` で起動します。
-
-### 3. 画面モック確認
-
-```bash
-# ブラウザで開く
-docs/mockups/index.html
-```
-
-または直接ログイン画面から:
-```bash
-docs/mockups/login.html
-```
-
-## 📡 API エンドポイント
-
-### 認証
-- `POST /api/auth/login` - ログイン
-- `GET /api/auth/verify` - トークン検証
-
-### 患者管理
-- `GET /api/patients/search?patientNumber=000001` - 患者検索
-- `GET /api/patients/:patientId` - 患者詳細
-- `POST /api/patients` - 患者登録
-- `PUT /api/patients/:patientId` - 患者更新
-
-### 来院記録
-- `POST /api/visits` - 来院記録作成
-- `GET /api/visits/patient/:patientId` - 患者の来院履歴
-- `GET /api/visits/today/list` - 本日の来院一覧
-
-### カルテ記録
-- `POST /api/medical-records` - カルテ作成
-- `POST /api/medical-records/:recordId/sign` - カルテ署名
-- `GET /api/medical-records/patient/:patientId` - カルテ一覧
-
-### 処方オーダー
-- `POST /api/prescriptions` - 処方オーダー作成
-- `GET /api/prescriptions/patient/:patientId` - 処方履歴
-
-## 🔐 デモアカウント
-
-| ユーザー名 | パスワード | ロール |
-|-----------|----------|--------|
-| doctor | password123 | 医師 |
-| nurse | password123 | 看護師 |
-| clerk | password123 | 医療事務 |
-
-## 🧪 APIテスト例
-
-### ログイン
-```bash
-curl -X POST http://localhost:3000/api/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{"username":"doctor","password":"password123"}'
-```
-
-### 患者検索（要認証）
-```bash
-curl -X GET "http://localhost:3000/api/patients/search?lastNameKana=ヤマダ" \
-  -H "Authorization: Bearer YOUR_TOKEN"
-```
-
-## 🏗️ 技術スタック
-
-### バックエンド
-- **Node.js** 18+
-- **Express** 4.x - Webフレームワーク
-- **PostgreSQL** 14+ - データベース
-- **JWT** - 認証
-- **bcrypt** - パスワードハッシュ化
-- **express-validator** - バリデーション
-
-### フロントエンド（モック）
-- **HTML5 / CSS3**
-- **レスポンシブデザイン**
-- **JavaScript** (Vanilla)
-
-## 📊 データモデルの特徴
-
-- **37テーブル**: 完全な医療情報管理
-- **正規化**: 第3正規形まで適用
-- **監査証跡**: 全テーブルに作成者・更新者記録
-- **論理削除**: 医療データは物理削除せず is_deleted フラグ
-- **履歴管理**: カルテは全変更履歴を保存
-- **暗号化対応**: 個人情報は暗号化可能な設計
-
-## 🔒 セキュリティ対策
-
-- ✅ JWT認証
-- ✅ パスワードハッシュ化（bcrypt, rounds=10）
-- ✅ ロールベースアクセス制御（RBAC）
-- ✅ SQLインジェクション対策（パラメータ化クエリ）
-- ✅ アカウントロック（5回失敗で30分ロック）
-- ✅ セッションタイムアウト（24時間）
-- ✅ CORS設定
-
-## 📈 非機能要件
-
-### パフォーマンス
-- 画面表示応答時間: 2秒以内（目標）
-- 同時接続ユーザー数: 100ユーザー以上対応
-
-### 可用性
-- 稼働率: 99.9%以上（目標）
-- データバックアップ: 日次
-
-### スケーラビリティ
-- 水平スケール対応設計
-- データベース接続プーリング（max 20接続）
-
-## 🧪 テスト
-
-```bash
-cd backend
-npm test
-```
-
-テストカバレッジレポート生成:
-```bash
-npm test -- --coverage
-```
-
-## 📝 今後の拡張計画
-
-### Phase 2（実装予定）
-- フロントエンド（React）
-- 検査オーダー機能
-- 予約管理機能
-- 会計機能
-
-### Phase 3（実装予定）
-- 入院管理
-- 看護記録
-- レセプト作成
-- 画像検査（DICOM対応）
-
-### Phase 4（実装予定）
-- 患者ポータル
-- オンライン診療
-- AI診断支援
-- 多施設対応
-
-## 📚 ドキュメント
-
-詳細な設計ドキュメントは `docs/` ディレクトリを参照してください。
-
-- [運用イメージ](docs/requirements/01_運用イメージ.md)
-- [データモデル設計](docs/models/02_データモデル設計.md)
-- [機能概要設計](docs/design/03_機能概要設計.md)
-- [画面一覧](docs/screens/04_画面一覧.md)
-- [画面詳細設計](docs/screens/05_画面詳細設計.md)
-- [画面モック](docs/mockups/README.md)
-
-## 📄 ライセンス
-
-© 2024 Medical System. All rights reserved.
-
----
-
-**バージョン**: 1.0  
-**作成日**: 2024年1月  
-**ステータス**: MVP完成（Phase 1）
-=======
-# トラック配送計画・配送実績追跡システム
-
-物流企業向けのトラック配送管理システムです。配送計画の作成、ルート最適化、リアルタイム追跡、実績管理をサポートします。
-
-## プロジェクト構成
-
-```
-new_trans/
-├── backend/          # Node.js + Express + Prisma
-├── frontend/         # React + Redux + MUI
-├── database/         # データベーススキーマ
-├── mockups/          # HTMLモックアップ
-└── docs/             # 設計ドキュメント
-```
-
-## 技術スタック
-
-### バックエンド
-- **Runtime**: Node.js 20.x
-- **Framework**: Express.js
-- **ORM**: Prisma
-- **Database**: PostgreSQL 16.x
-- **Cache**: Redis
-- **Language**: TypeScript
-
-### フロントエンド
-- **Framework**: React 18.x
-- **State Management**: Redux Toolkit
-- **UI Library**: Material-UI v5
-- **Build Tool**: Vite
-- **Language**: TypeScript
-
-## セットアップ
-
-### 前提条件
-- Node.js 20.x 以上
-- PostgreSQL 16.x
-- Redis 7.x
-
-### バックエンドセットアップ
+### 2. バックエンドセットアップ
 
 ```bash
 cd backend
@@ -303,18 +78,27 @@ cd backend
 # 依存関係インストール
 npm install
 
-# 環境変数設定
-cp .env.example .env
-# .env を編集してデータベース接続情報を設定
+# 環境変数設定（.envファイルを作成）
+# DATABASE_URL, JWT_SECRET等を設定
 
-# Prismaマイグレーション実行
+# データベース初期化（PostgreSQL版）
+psql -U postgres
+CREATE DATABASE medical_record_db;
+\c medical_record_db
+\i database/init.sql
+\q
+
+# または Prisma版
 npx prisma migrate dev
+npx prisma generate
 
 # サーバー起動（開発モード）
 npm run dev
 ```
 
-### フロントエンドセットアップ
+バックエンドが `http://localhost:3000` で起動します。
+
+### 3. フロントエンドセットアップ
 
 ```bash
 cd frontend
@@ -326,83 +110,99 @@ npm install
 npm run dev
 ```
 
-### アクセス
-- バックエンド: http://localhost:3000
-- フロントエンド: http://localhost:5173
+フロントエンドが `http://localhost:5173` で起動します。
 
-## データベースセットアップ
+### 4. モックアップの確認
 
-### PostgreSQLインストール（Windows）
+ブラウザで以下のファイルを直接開きます：
 
-```powershell
-# PostgreSQL公式サイトからインストーラーをダウンロード
-# または Chocolatey を使用
-choco install postgresql
-
-# データベース作成
-psql -U postgres
-CREATE DATABASE delivery_management;
+```
+mockups/01_login.html
+mockups/02_dashboard.html
+docs/mockups/index.html
 ```
 
-### Prismaマイグレーション
-
-```bash
-cd backend
-
-# Prismaクライアント生成
-npm run prisma:generate
-
-# マイグレーション実行
-npm run prisma:migrate
-
-# Prisma Studioで確認
-npm run prisma:studio
-```
-
-## API ドキュメント
+## 📡 API エンドポイント
 
 ### 認証
-- `POST /api/v1/auth/login` - ログイン
-- `POST /api/v1/auth/logout` - ログアウト
+- `POST /api/auth/login` - ログイン
+- `GET /api/auth/verify` - トークン検証
 
-### 配送依頼
-- `GET /api/v1/delivery-orders` - 一覧取得
-- `GET /api/v1/delivery-orders/:id` - 詳細取得
-- `POST /api/v1/delivery-orders` - 新規作成
-- `PUT /api/v1/delivery-orders/:id` - 更新
-- `DELETE /api/v1/delivery-orders/:id` - 削除
-- `GET /api/v1/delivery-orders/stats` - 統計情報取得
+### 患者管理
+- `GET /api/patients/search` - 患者検索
+- `GET /api/patients/:id` - 患者詳細
+- `POST /api/patients` - 患者登録
+- `PUT /api/patients/:id` - 患者更新
 
-## テスト
+### 来院記録
+- `POST /api/visits` - 来院記録作成
+- `GET /api/visits/patient/:patientId` - 患者の来院履歴
+- `GET /api/visits/today/list` - 本日の来院一覧
+
+### カルテ記録
+- `POST /api/medical-records` - カルテ作成
+- `POST /api/medical-records/:id/sign` - カルテ署名
+- `GET /api/medical-records/patient/:patientId` - カルテ一覧
+
+### 処方オーダー
+- `POST /api/prescriptions` - 処方オーダー作成
+- `GET /api/prescriptions/patient/:patientId` - 処方履歴
+
+### 配送管理（配送システム機能）
+- `GET /api/v1/delivery-orders` - 配送依頼一覧
+- `POST /api/v1/delivery-orders` - 配送依頼作成
+- `GET /api/v1/delivery-orders/stats` - 統計情報
+
+## 🔐 デモアカウント
+
+| ユーザー名 | パスワード | ロール |
+|-----------|----------|--------|
+| doctor | password123 | 医師 |
+| nurse | password123 | 看護師 |
+| clerk | password123 | 医療事務 |
+
+## 🏗️ 技術スタック
+
+### バックエンド
+- **Node.js** 20.x
+- **Express** 4.x/5.x
+- **PostgreSQL** 14+
+- **Prisma** ORM
+- **JWT** 認証
+- **bcrypt/bcryptjs** パスワードハッシュ化
+- **TypeScript**
+
+### フロントエンド
+- **React** 18.x
+- **Redux Toolkit** 状態管理
+- **Material-UI** UIコンポーネント
+- **Vite** ビルドツール
+- **TypeScript**
+
+### その他
+- **Jest** テストフレームワーク
+- **Supertest** APIテスト
+
+## 🧪 テスト実行
 
 ### バックエンドテスト
 
 ```bash
 cd backend
-
-# 全テスト実行
-npm test
-
-# カバレッジ付きテスト
-npm test -- --coverage
-
-# ウォッチモード
-npm run test:watch
+npm test                    # 全テスト実行
+npm test -- --coverage     # カバレッジ付き
+npm run test:watch         # ウォッチモード
 ```
 
 ### フロントエンドテスト
 
 ```bash
 cd frontend
-
-# テスト実行
-npm test
-
-# UI付きテスト
-npm run test:ui
+npm test                    # 全テスト実行
+npm run test:ui            # UI付きテスト
 ```
 
-## ビルド
+## 📦 本番ビルド
 
 ### バックエンド
 
@@ -420,77 +220,58 @@ npm run build
 npm run preview
 ```
 
-## 主要機能
+## 📚 ドキュメント
 
-### 配車担当者向け
-✅ 配送依頼の登録・管理
-✅ 配車計画の作成
-✅ ルート最適化
-✅ リアルタイム進捗モニター
-✅ KPIダッシュボード
+詳細なドキュメントは以下を参照してください：
 
-### ドライバー向け（モバイル）
-✅ 当日の配送計画確認
-✅ ナビゲーション連携
-✅ 配送実績入力
-✅ 電子サイン取得
-✅ 配送証跡（写真）撮影
+- [要件定義・前提条件](01_要件定義・前提条件.md)
+- [データモデル設計](02_データモデル設計.md)
+- [運用フロー・機能概要設計](03_運用フロー・機能概要設計.md)
+- [画面一覧・画面詳細設計](04_画面一覧・画面詳細設計.md)
+- [技術仕様・アーキテクチャ設計](05_技術仕様・アーキテクチャ設計.md)
+- [セットアップ詳細手順](SETUP.md)
 
-### 管理者向け
-✅ 実績レポート
-✅ パフォーマンス分析
-✅ マスタ管理
+## 🔧 トラブルシューティング
 
-## 開発ガイドライン
+### ポートが既に使用されている
 
-### コーディング規約
-- ESLint + Prettier を使用
-- コミットメッセージは Conventional Commits 形式
-- TypeScript strict mode 有効
-
-### Git ワークフロー
-```bash
-# feature ブランチ作成
-git checkout -b feature/new-feature
-
-# 開発・テスト
-
-# コミット
-git commit -m "feat: 新機能追加"
-
-# プッシュ
-git push origin feature/new-feature
-
-# Pull Request 作成
-```
-
-## トラブルシューティング
-
-### ポートが使用中
 ```bash
 # Windows
 netstat -ano | findstr :3000
 taskkill /PID <PID> /F
 
-# Unix
+# Linux/Mac
 lsof -ti:3000 | xargs kill
 ```
 
-### Prisma接続エラー
-```bash
-# Prismaクライアント再生成
-npx prisma generate
+### データベース接続エラー
 
-# データベース接続確認
+```bash
+# PostgreSQL接続確認
+psql -U postgres -l
+
+# Prisma再生成
+npx prisma generate
 npx prisma db pull
 ```
 
-## ライセンス
-This project is proprietary and confidential.
+### node_modulesエラー
 
-## 作成者
+```bash
+# クリーンインストール
+rm -rf node_modules package-lock.json
+npm install
+```
+
+## 📄 ライセンス
+
+© 2025 Medical System. All rights reserved.
+
+## 👥 作成者
+
 AI駆動開発チーム
 
-## 更新履歴
-- 2025-01-20: プロジェクト初期セットアップ
->>>>>>> f9dc43655f93776edccfe3b8a9b0c3950f4d0cc4
+## 📅 更新履歴
+
+- **2025-01-20**: プロジェクト初期セットアップ、GitHubアップロード完了
+- **v1.0.0**: MVP完成（Phase 1）
